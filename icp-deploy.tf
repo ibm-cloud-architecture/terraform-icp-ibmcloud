@@ -18,7 +18,7 @@ module "icpprovision" {
         master = ["${ibm_compute_vm_instance.icp-master.*.ipv4_address_private}"]
         proxy = ["${ibm_compute_vm_instance.icp-proxy.*.ipv4_address_private}"]
         worker = ["${ibm_compute_vm_instance.icp-worker.*.ipv4_address_private}"]
-        mgmt = ["${ibm_compute_vm_instance.icp-mgmt.*.ipv4_address_private}"]
+        management = ["${ibm_compute_vm_instance.icp-mgmt.*.ipv4_address_private}"]
         va = ["${ibm_compute_vm_instance.icp-va.*.ipv4_address_private}"]
     }
 
