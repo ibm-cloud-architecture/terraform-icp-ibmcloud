@@ -35,7 +35,7 @@ variable "public_vlan_number" {
 
 variable "deployment" {
    description = "Identifier prefix added to the host names."
-   default = "icp"
+   default = "icptest"
 }
 
 variable "os_reference_code" {
@@ -44,7 +44,7 @@ variable "os_reference_code" {
 }
 
 variable "domain" {
-  description = "Specify domain name to be used for linux customization on the VMs, or leave blank to use <instance_name>.icp"
+  description = "Specify domain name to be used for linux customization on the VMs, or leave blank to use <deployment>.icp"
   default     = ""
 }
 
@@ -59,12 +59,13 @@ variable "boot" {
   type = "map"
 
   default = {
+    nodes             = "0"
     cpu_cores         = "2"
-    memory            = "2048"
+    memory            = "4096"
 
     disk_size         = "100" // GB
     docker_vol_size   = "100" // GB
-    local_disk        = false
+    local_disk        = true
     os_reference_code = "UBUNTU_16_64"
 
     network_speed     = "1000"
@@ -79,8 +80,8 @@ variable "master" {
   default = {
     nodes             = "1"
 
-    cpu_cores         = "4"
-    memory            = "8192"
+    cpu_cores         = "8"
+    memory            = "16384"
 
     disk_size         = "100" // GB
     docker_vol_size   = "100" // GB
@@ -96,10 +97,10 @@ variable "mgmt" {
   type = "map"
 
   default = {
-    nodes       = "1"
+    nodes       = "0"
 
     cpu_cores   = "4"
-    memory      = "8192"
+    memory      = "16384"
 
     disk_size         = "100" // GB
     docker_vol_size   = "100" // GB
@@ -157,7 +158,7 @@ variable "worker" {
     nodes       = "3"
 
     cpu_cores   = "4"
-    memory      = "16384"
+    memory      = "4096"
 
     disk_size         = "100" // GB
     docker_vol_size   = "100" // GB
@@ -169,34 +170,6 @@ variable "worker" {
   }
 }
 
-variable "fs_audit" {
-  default = {
-    type = "Endurance"
-    size = "20"
-    hourly_billing = true
-    iops = 0.25
-  }
-}
-
-variable "fs_registry" {
-  default = {
-    type = "Endurance"
-    size = "50"
-    hourly_billing = true
-    iops = 2
-  }
-}
-
-variable "docker_package_location" {
-  description = "URI for docker package location, e.g. http://<myhost>/icp-docker-17.09_x86_64.bin or nfs:<myhost>/icp-docker-17.09_x86_64.bin"
-  default     = ""
-}
-
-variable "image_location" {
-  description = "URI for image package location, e.g. http://<myhost>/ibm-cloud-private-x86_64-2.1.0.2.tar.gz or nfs:<myhost>/ibm-cloud-private-x86_64-2.1.0.2.tar.gz"
-  default     = ""
-}
-
 variable "icppassword" {
   description = "Password for the initial admin user in ICP; blank to generate"
   default     = ""
@@ -204,7 +177,7 @@ variable "icppassword" {
 
 variable "icp_inception_image" {
   description = "ICP image to use for installation"
-  default     = "ibmcom/icp-inception:2.1.0.2-ee"
+  default     = "ibmcom/icp-inception:3.1.0"
 }
 
 variable "network_cidr" {
@@ -215,4 +188,12 @@ variable "network_cidr" {
 variable "service_network_cidr" {
   description = "Service network CIDR "
   default     = "172.21.0.0/16"
+}
+
+# The following services can be disabled for 3.1
+# custom-metrics-adapter, image-security-enforcement, istio, metering, monitoring, service-catalog, storage-minio, storage-glusterfs, and vulnerability-advisor
+variable "disabled_management_services" {
+  description = "List of management services to disable"
+  type        = "list"
+  default     = ["istio", "vulnerability-advisor", "storage-glusterfs", "storage-minio", "metrics-server", "custom-metrics-adapter", "image-security-enforcement", "metering", "monitoring", "logging", "audit-logging"]
 }

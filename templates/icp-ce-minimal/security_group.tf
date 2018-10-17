@@ -17,13 +17,11 @@ resource "ibm_security_group_rule" "allow_cluster_egress_private" {
 }
 
 resource "ibm_security_group" "cluster_public" {
-  count = "${var.private_network_only ? 0 : 1}"
   name = "${var.deployment}-cluster-pub-${random_id.clusterid.hex}"
   description = "allow intercluster communication"
 }
 
 resource "ibm_security_group_rule" "allow_ingress_from_self_pub" {
-  count = "${var.private_network_only ? 0 : 1}"
   direction = "ingress"
   ether_type = "IPv4"
   remote_group_id = "${ibm_security_group.cluster_public.id}"
@@ -31,7 +29,6 @@ resource "ibm_security_group_rule" "allow_ingress_from_self_pub" {
 }
 
 resource "ibm_security_group_rule" "allow_cluster_public" {
-  count = "${var.private_network_only ? 0 : 1}"
   direction = "egress"
   ether_type = "IPv4"
   security_group_id = "${ibm_security_group.cluster_public.id}"
@@ -49,7 +46,7 @@ resource "ibm_security_group_rule" "allow_port_8443" {
   protocol = "tcp"
   port_range_min = 8443
   port_range_max = 8443
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -60,7 +57,18 @@ resource "ibm_security_group_rule" "allow_port_8500" {
   protocol = "tcp"
   port_range_min = 8500
   port_range_max = 8500
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
+  security_group_id = "${ibm_security_group.master_group.id}"
+}
+
+# restrict to LBaaS private subnet
+resource "ibm_security_group_rule" "allow_port_8600" {
+  direction = "ingress"
+  ether_type = "IPv4"
+  protocol = "tcp"
+  port_range_min = 8600
+  port_range_max = 8600
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -71,7 +79,7 @@ resource "ibm_security_group_rule" "allow_port_8001" {
   protocol = "tcp"
   port_range_min = 8001
   port_range_max = 8001
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -83,7 +91,7 @@ resource "ibm_security_group_rule" "allow_port_9443" {
   protocol = "tcp"
   port_range_min = 9443
   port_range_max = 9443
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -93,27 +101,46 @@ resource "ibm_security_group_rule" "master_node_allow_outbound_public" {
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
-# restrict to LBaaS private subnet
 resource "ibm_security_group_rule" "allow_port_80" {
   direction = "ingress"
   ether_type = "IPv4"
   protocol = "tcp"
   port_range_min = 80
   port_range_max = 80
-  remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.proxy_group.id}"
 }
 
-# restrict to LBaaS private subnet
 resource "ibm_security_group_rule" "allow_port_443" {
   direction = "ingress"
   ether_type = "IPv4"
   protocol = "tcp"
   port_range_min = 443
   port_range_max = 443
-  remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
+  remote_ip = "0.0.0.0/0"
   security_group_id = "${ibm_security_group.proxy_group.id}"
 }
+
+resource "ibm_security_group_rule" "allow_proxy_tcp_nodeport" {
+  direction = "ingress"
+  ether_type = "IPv4"
+  protocol = "tcp"
+  port_range_min = 30000
+  port_range_max = 32767
+  remote_ip = "0.0.0.0/0"
+  security_group_id = "${ibm_security_group.proxy_group.id}"
+}
+
+resource "ibm_security_group_rule" "allow_proxy_upd_nodeport" {
+  direction = "ingress"
+  ether_type = "IPv4"
+  protocol = "udp"
+  port_range_min = 30000
+  port_range_max = 32767
+  remote_ip = "0.0.0.0/0"
+  security_group_id = "${ibm_security_group.proxy_group.id}"
+}
+
 
 resource "ibm_security_group" "proxy_group" {
   name = "${var.deployment}-proxy-${random_id.clusterid.hex}"
@@ -132,5 +159,6 @@ resource "ibm_security_group_rule" "allow_ssh" {
   protocol = "tcp"
   port_range_min = 22
   port_range_max = 22
-  security_group_id = "${ibm_security_group.boot_node_public.id}"
+  remote_ip = "0.0.0.0/0"
+  security_group_id = "${ibm_security_group.cluster_public.id}"
 }

@@ -1,6 +1,5 @@
 # /var/lib/registry
 resource "ibm_storage_file" "fs_registry" {
-  count = "${var.master["nodes"] > 1 ? 1 : 0}"
   type            = "${var.fs_registry["type"]}"
   datacenter      = "${var.datacenter}"
   capacity        = "${var.fs_registry["size"]}"
@@ -18,7 +17,6 @@ resource "ibm_storage_file" "fs_registry" {
 
 #/var/lib/icp/audit
 resource "ibm_storage_file" "fs_audit" {
-  count = "${var.master["nodes"] > 1 ? 1 : 0}"
   type            = "${var.fs_audit["type"]}"
   datacenter      = "${var.datacenter}"
   capacity        = "${var.fs_audit["size"]}"
