@@ -63,7 +63,7 @@ image_location = "nfs:fsf-dal1301i-fz.adn.networklayer.com:/IBMnnSVnnnn_n/data01
 1. Create load balancers for Proxy and Control plane
 2. Create IBM File Storage for master nodes shared storage
 1. Create the virtual machines as defined in `variables.tf` and `terraform.tfvars`
-  - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
+   - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
   - Configure a separate hard disk to be used by docker
   - Configure the shared storage on master nodes
 
