@@ -5,7 +5,7 @@ and [Terraform Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
 
 ## Deployment overview
 This template creates an environment where
- - Cluster is deployed on private network and is accessed loadbalancers.
+ - Cluster is deployed on private network and is accessed through load balancers.
  - SSH access is enabled on public network
  - Most ICP services disabled (some can be activated via `terraform.tfvars` settings as described below)
  - Minimal VM sizes
