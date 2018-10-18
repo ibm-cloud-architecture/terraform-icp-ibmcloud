@@ -53,6 +53,10 @@ elif [[ "${package_location:0:3}" == "nfs" ]]; then
 
   # Mount
   sudo mount.nfs $nfs_mount $sourcedir
+  if [ $? -ne 0 ]; then
+    echo "An error occurred mounting the NFS server. Mount point: $nfs_mount"
+    exit 1
+  fi
 
 else
   # This must be uploaded from local file, terraform should have copied it to /tmp

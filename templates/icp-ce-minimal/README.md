@@ -50,23 +50,23 @@ key_name    = ["my-ssh-key"]
 
 #### What does the automation do
 1. Create the virtual machines as defined in `variables.tf` and `terraform.tfvars`
-  - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
-  - Configure a separate hard disk to be used by docker
+   - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
+   - Configure a separate hard disk to be used by docker
 2. Create security groups and rules for cluster communication as declared in [security_group.tf](security_group.tf)
 3. Handover to the [icp-deploy](https://github.com/ibm-cloud-architecture/terraform-module-icp-deploy) terraform module as declared in the [icp-deploy.tf](icp-deploy.tf) file
 
 #### What does the icp deploy module do
 1. It uses the provided ssh key which has been generated for the `icpdeploy` user to ssh from the terraform controller to all cluster nodes to install ICP prerequisites
 2. It generates a new ssh keypair for ICP Boot(master) node to ICP cluster communication and distributes the public key to the cluster nodes. This key is used by the ICP Ansible installer.
-3. It populates the necessary /etc/hosts file on the boot node
+3. It populates the necessary `/etc/hosts` file on the boot node
 4. It generates the ICP cluster hosts file based on information provided in [icp-deploy.tf](icp-deploy.tf)
-5. 4. It generates the ICP cluster `config.yaml` file based on information provided in [icp-deploy.tf](icp-deploy.tf)
+5. It generates the ICP cluster `config.yaml` file based on information provided in [icp-deploy.tf](icp-deploy.tf)
 
 #### Security Groups
 
 The automation leverages Security Groups to lock down public and private access to the cluster.
 
-- SSH is allowed to all cluster node to ease exploration and investigation
+- SSH is allowed to all cluster nodes to ease exploration and investigation
 - UDP and TCP port 30000 - 32767 are allowed on proxy node to enable use of [NodePort](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.0/manage_applications/expose_app.html)
 - Inbound communication to the master node is permitted on [ports relevant to the ICP service](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.0/supported_system_config/required_ports.html)
 - All outbound communication is allowed.
@@ -91,7 +91,7 @@ Please see [variables.tf](variables.tf) for additional parameters.
 | `public_vlan_router_hostname` | no | Public VLAN router to place all VSIs behind.  e.g. fcr01a. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `public_vlan_number` | no | Public VLAN number to place all VSIs on.  e.g. 1211. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `icppassword` | no | ICP administrator password.  One will be generated if not set. |
-
+| `deployment` | no | Identifier prefix added to the host names of all your infrastructure resources for organising/naming ease |
 
 ### Configuration examples
 
