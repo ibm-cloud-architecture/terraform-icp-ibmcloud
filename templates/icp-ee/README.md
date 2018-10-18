@@ -5,12 +5,13 @@ and [Terraform Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
 
 ## Deployment overview
 This template creates an environment where
- - Cluster is deployed on private network and is accessed through load balancers.
+ - Cluster is deployed on private network and is accessed through load balancers
  - Dedicated management node
  - Dedicated boot node
  - SSH access from public network is enabled on boot node only
  - Optimised VM sizes
  - IBM File Storage providing shared storage for master nodes
+ - No Vulnerability Advisor node and vulnerability advisor service disabled by default (can be enabled via `terraform.tfvars` settings as described below)
 
 ## Architecture Diagram
 
@@ -27,7 +28,7 @@ This template creates an environment where
 
 There are two options to provide the IBM Cloud Private binaries necessary to install:
 1. Download the IBM Cloud Private docker and installation binaries and save them to the `icp-install` directory.
-2. (Preferred) Create an NFS mount point with IBM Cloud File Storage and upload the binaries there. See below to the [Setup IBM Cloud File Storage](#setup-ibm-cloud-file-storage-to-host-icp-binaries) for this purpose.
+2. (Preferred) Create an NFS mount point with IBM Cloud File Storage and upload the binaries there. See below to the [Setup IBM Cloud File Storage](#setup-ibm-cloud-file-storage) for this purpose.
 3. Create an HTTP endpoint and upload the binaries there.
 
 ### Using the Terraform templates
@@ -60,12 +61,12 @@ image_location = "nfs:fsf-dal1301i-fz.adn.networklayer.com:/IBMnnSVnnnn_n/data01
 
 #### What does the automation do
 1. Create security groups and rules for cluster communication as declared in [security_group.tf](security_group.tf)
-1. Create load balancers for Proxy and Control plane
+1. Create Loadbalancers for Proxy and Control plane
 2. Create IBM File Storage for master nodes shared storage
 1. Create the virtual machines as defined in `variables.tf` and `terraform.tfvars`
-   - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
-   - Configure a separate hard disk to be used by docker
-   - Configure the shared storage on master nodes
+  - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
+  - Configure a separate hard disk to be used by docker
+  - Configure the shared storage on master nodes
 
 1. Handover to the [icp-deploy](https://github.com/ibm-cloud-architecture/terraform-module-icp-deploy) terraform module as declared in the [icp-deploy.tf](icp-deploy.tf) file
 
@@ -73,9 +74,9 @@ image_location = "nfs:fsf-dal1301i-fz.adn.networklayer.com:/IBMnnSVnnnn_n/data01
 #### What does the icp deploy module do
 1. It uses the provided ssh key which has been generated for the `icpdeploy` user to ssh from the terraform controller to all cluster nodes to install ICP prerequisites
 2. It generates a new ssh keypair for ICP Boot(master) node to ICP cluster communication and distributes the public key to the cluster nodes. This key is used by the ICP Ansible installer.
-3. It populates the necessary `/etc/hosts` file on the boot node
+3. It populates the necessary /etc/hosts file on the boot node
 4. It generates the ICP cluster hosts file based on information provided in [icp-deploy.tf](icp-deploy.tf)
-5. It generates the ICP cluster `config.yaml` file based on information provided in [icp-deploy.tf](icp-deploy.tf)
+5. 4. It generates the ICP cluster `config.yaml` file based on information provided in [icp-deploy.tf](icp-deploy.tf)
 
 
 #### Boot Node private registry
@@ -132,7 +133,7 @@ Please see [variables.tf](variables.tf) for additional parameters.
 | `public_vlan_router_hostname` | no | Public VLAN router to place all VSIs behind.  e.g. fcr01a. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `public_vlan_number` | no | Public VLAN number to place all VSIs on.  e.g. 1211. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `icppassword` | no | ICP administrator password.  One will be generated if not set. |
-| `deployment` | no | Identifier prefix added to the host names of all your infrastructure resources for organising/naming ease |
+
 
 
 ### Setup IBM Cloud File Storage to Host ICP Binaries
