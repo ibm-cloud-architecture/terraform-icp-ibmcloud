@@ -7,7 +7,7 @@ and [Terraform Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
 
 * Working copy of [Terraform](https://www.terraform.io/intro/getting-started/install.html)
   * As of this writing, IBM Cloud Terraform provider is not in the main Terraform repository and must be installed manually.  See [these steps](https://ibm-cloud.github.io/tf-ibm-docs/index.html#using-terraform-with-the-ibm-cloud-provider).  We tested this automation script against v0.9.1 of the Terraform provider.
-* Select a template that most closely match your desired target environment from the [available templates](templates)
+* Select a template that most closely matches your desired target environment from the [available templates](templates)
 
 
 
