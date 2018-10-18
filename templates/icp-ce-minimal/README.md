@@ -91,7 +91,7 @@ Please see [variables.tf](variables.tf) for additional parameters.
 | `public_vlan_router_hostname` | no | Public VLAN router to place all VSIs behind.  e.g. fcr01a. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `public_vlan_number` | no | Public VLAN number to place all VSIs on.  e.g. 1211. See Network > IP Management > VLANs in the portal. Leave blank to let the system choose. |
 | `icppassword` | no | ICP administrator password.  One will be generated if not set. |
-
+| `deployment` | no | Identifier prefix added to the host names of all your infrastructure resources for organising/naming ease |
 
 ### Configuration examples
 
