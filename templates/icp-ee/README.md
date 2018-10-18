@@ -5,12 +5,13 @@ and [Terraform Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
 
 ## Deployment overview
 This template creates an environment where
- - Cluster is deployed on private network and is accessed through load balancers.
+ - Cluster is deployed on private network and is accessed through load balancers
  - Dedicated management node
  - Dedicated boot node
  - SSH access from public network is enabled on boot node only
  - Optimised VM sizes
  - IBM File Storage providing shared storage for master nodes
+ - No Vulnerability Advisor node and vulnerability advisor service disabled by default (can be enabled via `terraform.tfvars` settings as described below)
 
 ## Architecture Diagram
 

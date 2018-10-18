@@ -5,12 +5,13 @@ and [Terraform Module ICP Deploy](https://github.com/ibm-cloud-architecture/terr
 
 ## Deployment overview
 This template creates an environment where
- - Cluster is deployed directly on public network and is accessed on the VMs public IP.
+ - Cluster is deployed directly on public network and is accessed on the VMs public IP
  - There are no load balancers, but applications can be accessed via NodePort on public IP of proxy node
  - Most ICP services disabled (some can be activated via `terraform.tfvars` settings as described below)
  - Minimal VM sizes
  - No separate boot node
  - No management node (can be enabled via `terraform.tfvars` settings as described below)
+ - No Vulnerability Advisor node and vulnerability advisor service disabled by default
 
 ## Architecture Diagram
 
