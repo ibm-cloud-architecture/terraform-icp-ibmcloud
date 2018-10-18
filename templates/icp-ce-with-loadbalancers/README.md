@@ -53,7 +53,7 @@ key_name    = ["my-ssh-key"]
    - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
    - Configure a separate hard disk to be used by docker
 2. Create security groups and rules for cluster communication as declared in [security_group.tf](security_group.tf)
-3. Create Loadbalancers for Proxy and Control plane
+3. Create load balancers for Proxy and Control plane
 4. Handover to the [icp-deploy](https://github.com/ibm-cloud-architecture/terraform-module-icp-deploy) terraform module as declared in the [icp-deploy.tf](icp-deploy.tf) file
 
 #### What does the icp deploy module do
