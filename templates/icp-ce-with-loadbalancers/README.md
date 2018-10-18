@@ -50,7 +50,7 @@ key_name    = ["my-ssh-key"]
 
 #### What does the automation do
 1. Create the virtual machines as defined in `variables.tf` and `terraform.tfvars`
-  - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
+   - Use cloud-init to add a user `icpdeploy` with a randomly generated ssh-key
   - Configure a separate hard disk to be used by docker
 2. Create security groups and rules for cluster communication as declared in [security_group.tf](security_group.tf)
 3. Create Loadbalancers for Proxy and Control plane
