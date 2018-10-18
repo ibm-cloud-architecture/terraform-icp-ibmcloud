@@ -73,7 +73,7 @@ image_location = "nfs:fsf-dal1301i-fz.adn.networklayer.com:/IBMnnSVnnnn_n/data01
 #### What does the icp deploy module do
 1. It uses the provided ssh key which has been generated for the `icpdeploy` user to ssh from the terraform controller to all cluster nodes to install ICP prerequisites
 2. It generates a new ssh keypair for ICP Boot(master) node to ICP cluster communication and distributes the public key to the cluster nodes. This key is used by the ICP Ansible installer.
-3. It populates the necessary /etc/hosts file on the boot node
+3. It populates the necessary `/etc/hosts` file on the boot node
 4. It generates the ICP cluster hosts file based on information provided in [icp-deploy.tf](icp-deploy.tf)
 5. 4. It generates the ICP cluster `config.yaml` file based on information provided in [icp-deploy.tf](icp-deploy.tf)
 
