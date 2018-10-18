@@ -27,7 +27,7 @@ This template creates an environment where
 
 There are two options to provide the IBM Cloud Private binaries necessary to install:
 1. Download the IBM Cloud Private docker and installation binaries and save them to the `icp-install` directory.
-2. (Preferred) Create an NFS mount point with IBM Cloud File Storage and upload the binaries there. See below to the [Setup IBM Cloud File Storage](#setup-ibm-cloud-file-storage) for this purpose.
+2. (Preferred) Create an NFS mount point with IBM Cloud File Storage and upload the binaries there. See below to the [Setup IBM Cloud File Storage](#setup-ibm-cloud-file-storage-to-host-icp-binaries) for this purpose.
 3. Create an HTTP endpoint and upload the binaries there.
 
 ### Using the Terraform templates
