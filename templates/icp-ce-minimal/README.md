@@ -66,7 +66,7 @@ key_name    = ["my-ssh-key"]
 
 The automation leverages Security Groups to lock down public and private access to the cluster.
 
-- SSH is allowed to all cluster node to ease exploration and investigation
+- SSH is allowed to all cluster nodes to ease exploration and investigation
 - UDP and TCP port 30000 - 32767 are allowed on proxy node to enable use of [NodePort](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.0/manage_applications/expose_app.html)
 - Inbound communication to the master node is permitted on [ports relevant to the ICP service](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_3.1.0/supported_system_config/required_ports.html)
 - All outbound communication is allowed.
