@@ -1,0 +1,78 @@
+[
+  {
+    "name": "sl_username",
+    "label": "SoftLayer Username",
+    "description": "Username for IBM Cloud infrastructure account",
+    "hidden": false,
+    "immutable": false,
+    "required": true,
+    "secured": false,
+    "type": "string"
+  },
+  {
+    "name": "sl_api_key",
+    "label": "SoftLayer API Key",
+    "description": "API Key for IBM Cloud infrastructure account",
+    "hidden": false,
+    "immutable": false,
+    "required": true,
+    "secured": true,
+    "type": "string"
+  },
+  {
+    "name": "os_reference_code",
+    "label": "OS to install on the VSIs",
+    "description": "OS to install on the VSIs. Use the API to determine valid values. Only Ubuntu 16.04 was tested",
+    "default": "UBUNTU_16_64",
+    "hidden": false,
+    "immutable": false,
+    "required": true,
+    "secured": false,
+    "type": "string"
+  },
+  {
+    "name": "deployment",
+    "label": "ICP deployment Name",
+    "description": "Prefix of names for IBM Cloud ICP cluster resources; The name prefix must be 1-52 alphanumeric characters and dash",
+    "default": "icp",
+    "hidden": false,
+    "immutable": false,
+    "required": false,
+    "secured": false,
+    "type": "string",
+    "regex": "^[A-Za-z0-9-]{1,52}$"
+  },
+  {
+    "name": "key_name",
+    "label": "Array of SSH keys for created resources",
+    "description": "Array of SSH keys to add to root for all created VSI instances",
+    "default": [],
+    "hidden": false,
+    "immutable": false,
+    "required": false,
+    "secured": false,
+    "type": "list"
+  },
+  {
+    "name": "datacenter",
+    "label": "SoftLayer Datacenter",
+    "description": "SoftLayer Datacenter to deploy your resources to",
+    "default": "mil01",
+    "hidden": false,
+    "immutable": false,
+    "required": true,
+    "secured": false,
+    "type": "string"
+  },
+  {
+    "name": "domain",
+    "label": "Domain to be used on the VMs",
+    "description": "Specify domain name to be used for linux customization on the VMs, or leave blank to use <instance_name>.icp",
+    "default": "icp.com",
+    "hidden": false,
+    "immutable": false,
+    "required": false,
+    "secured": false,
+    "type": "string"
+  }
+]
