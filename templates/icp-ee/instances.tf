@@ -24,7 +24,7 @@ locals {
 
 resource "ibm_compute_vm_instance" "icp-boot" {
   hostname = "${var.deployment}-boot-${random_id.clusterid.hex}"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
 
@@ -129,7 +129,7 @@ resource "ibm_compute_vm_instance" "icp-master" {
   count = "${var.master["nodes"]}"
 
   hostname = "${format("${lower(var.deployment)}-master%02d-${random_id.clusterid.hex}", count.index + 1) }"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
 
@@ -251,7 +251,7 @@ resource "ibm_compute_vm_instance" "icp-mgmt" {
   count = "${var.mgmt["nodes"]}"
 
   hostname = "${format("${lower(var.deployment)}-mgmt%02d-${random_id.clusterid.hex}", count.index + 1) }"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
   datacenter = "${var.datacenter}"
@@ -357,7 +357,7 @@ resource "ibm_compute_vm_instance" "icp-va" {
   count = "${var.va["nodes"]}"
 
   hostname = "${format("${lower(var.deployment)}-va%02d-${random_id.clusterid.hex}", count.index + 1) }"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
 
@@ -461,7 +461,7 @@ resource "ibm_compute_vm_instance" "icp-proxy" {
   count = "${var.proxy["nodes"]}"
 
   hostname = "${format("${lower(var.deployment)}-proxy%02d-${random_id.clusterid.hex}", count.index + 1) }"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
 
@@ -567,7 +567,7 @@ resource "ibm_compute_vm_instance" "icp-worker" {
   count = "${var.worker["nodes"]}"
 
   hostname = "${format("${lower(var.deployment)}-worker%02d-${random_id.clusterid.hex}", count.index + 1) }"
-  domain = "${var.domain}"
+  domain = "${var.domain != "" ? var.domain : "${var.deployment}.icp"}"
 
   os_reference_code = "${var.os_reference_code}"
 
