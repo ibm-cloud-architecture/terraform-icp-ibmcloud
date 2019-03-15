@@ -197,6 +197,16 @@ variable "image_location" {
   default     = ""
 }
 
+variable "image_location_user" {
+  description = "Username if required by image_location i.e. authenticated http source"
+  default     = ""
+}
+
+variable "image_location_password" {
+  description = "Password if required by image_location i.e. authenticated http source"
+  default     = ""
+}
+
 variable "icppassword" {
   description = "Password for the initial admin user in ICP; blank to generate"
   default     = ""
