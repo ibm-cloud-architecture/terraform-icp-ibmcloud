@@ -1,14 +1,3 @@
-### For debugging
-variable "location" {
-
-}
-variable "locuser" {
-
-}
-variable "locpass" {
-
-}
-
 ##################################
 ### Deploy ICP to cluster
 ##################################
