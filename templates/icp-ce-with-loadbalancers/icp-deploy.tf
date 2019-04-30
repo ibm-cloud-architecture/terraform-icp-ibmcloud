@@ -53,30 +53,31 @@ module "icpprovision" {
     ssh_agent       = false
 }
 
-output "ICP Console load balancer DNS (external)" {
+
+output "icp_console_host" {
   value = "${ibm_lbaas.master-lbaas.vip}"
 }
 
-output "ICP Proxy load balancer DNS (external)" {
+output "icp_proxy_host" {
   value = "${ibm_lbaas.proxy-lbaas.vip}"
 }
 
-output "ICP Console URL" {
+output "icp_console_url" {
   value = "https://${ibm_lbaas.master-lbaas.vip}:8443"
 }
 
-output "ICP Registry URL" {
+output "icp_registry_url" {
   value = "${ibm_lbaas.master-lbaas.vip}:8500"
 }
 
-output "ICP Kubernetes API URL" {
+output "kubernetes_api_url" {
   value = "https://${ibm_lbaas.master-lbaas.vip}:8001"
 }
 
-output "ICP Admin Username" {
+output "icp_admin_username" {
   value = "admin"
 }
 
-output "ICP Admin Password" {
+output "icp_admin_password" {
   value = "${local.icppassword}"
 }

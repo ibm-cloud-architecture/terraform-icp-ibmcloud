@@ -51,22 +51,26 @@ module "icpprovision" {
 
 }
 
-output "ICP Console URL" {
+output "icp_console_host" {
+  value = "${element(ibm_compute_vm_instance.icp-master.*.ipv4_address, 0)}"
+}
+
+output "icp_console_url" {
   value = "https://${element(ibm_compute_vm_instance.icp-master.*.ipv4_address, 0)}:8443"
 }
 
-output "ICP Proxy" {
+output "icp_proxy_host" {
   value = "${element(ibm_compute_vm_instance.icp-proxy.*.ipv4_address, 0)}"
 }
 
-output "ICP Kubernetes API URL" {
+output "kubernetes_api_url" {
   value = "https://${element(ibm_compute_vm_instance.icp-master.*.ipv4_address, 0)}:8001"
 }
 
-output "ICP Admin Username" {
+output "icp_admin_username" {
   value = "admin"
 }
 
-output "ICP Admin Password" {
+output "icp_admin_password" {
   value = "${local.icppassword}"
 }
