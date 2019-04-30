@@ -1,0 +1,42 @@
+dist: xenial
+language: minimal
+
+os:
+  - linux
+
+env:
+  global:
+  - TERRAFORM_VER="0.11.13"
+  - TF_VAR_deployment="travisci${TRAVIS_JOB_ID}"
+  - TF_VAR_sl_username="${sl_username}"
+  - TF_VAR_sl_api_key="${sl_api_key}"
+  - REG_IMAGE="ibmcom-amd64/icp-inception:3.1.2-ee"
+  matrix:
+    ## Community Edition Builds
+    # CE minimal
+    - TERRAFORM_DIR: "${TRAVIS_BUILD_DIR}/templates/icp-ce-minimal"
+      TERRAFORM_VARS_FILE: "${TERRAFORM_DIR}/terraform-minimal-example.tfvars"
+    # CE With loadbalancers
+    - TERRAFORM_DIR: "${TRAVIS_BUILD_DIR}/templates/icp-ce-minimal"
+      TERRAFORM_VARS_FILE: "${TERRAFORM_DIR}/terraform-minimal-example.tfvars"
+    # TODO: Add enterprise edition
+
+# Ensure we have ibmcloud terraform provider
+before_install:
+  - mkdir -p ~/.terraform.d/plugins
+  - wget -o /tmp/linux_amd64.zip https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v0.16.1/linux_amd64.zip
+  - unzip /tmp/linux_amd64.zip -d ~/.terraform.d/plugins
+
+# Init the build harness
+before_script:
+  - make init
+
+  # Deploy the environment if changes in the relevant template
+script:
+  - make deploy-icp-if-tfchange
+  - make validate-icp
+
+
+# When everything has completed we can clean up the environment
+after_script:
+  - make cleanup
