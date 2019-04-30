@@ -17,14 +17,14 @@ env:
     - TERRAFORM_DIR: "${TRAVIS_BUILD_DIR}/templates/icp-ce-minimal"
       TERRAFORM_VARS_FILE: "${TERRAFORM_DIR}/terraform-minimal-example.tfvars"
     # CE With loadbalancers
-    - TERRAFORM_DIR: "${TRAVIS_BUILD_DIR}/templates/icp-ce-minimal"
+    - TERRAFORM_DIR: "${TRAVIS_BUILD_DIR}/templates/icp-ce-with-loadbalancers"
       TERRAFORM_VARS_FILE: "${TERRAFORM_DIR}/terraform-minimal-example.tfvars"
     # TODO: Add enterprise edition
 
 # Ensure we have ibmcloud terraform provider
 before_install:
   - mkdir -p ~/.terraform.d/plugins
-  - wget -o /tmp/linux_amd64.zip https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v0.16.1/linux_amd64.zip
+  - wget -P /tmp/ https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v0.16.1/linux_amd64.zip
   - unzip /tmp/linux_amd64.zip -d ~/.terraform.d/plugins
 
 # Init the build harness
