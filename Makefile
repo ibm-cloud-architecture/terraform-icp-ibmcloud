@@ -70,7 +70,7 @@ else ifeq "$(TRAVIS_TEST_RESULT)" "1"
 	$(error Will not run validation on failed deployment)
 else
 	$(info Running validation test)
-	@export SERVER=$(shell $(SELF) -s terraform:output TERRAFORM_OUTPUT_VAR=icp_console_server) ; \
+	@export SERVER=$(shell $(SELF) -s terraform:output TERRAFORM_OUTPUT_VAR=icp_console_host) ; \
 	export USERNAME=$(shell $(SELF) -s terraform:output TERRAFORM_OUTPUT_VAR=icp_admin_username) ; \
 	export PASSWORD=$(shell $(SELF) -s terraform:output TERRAFORM_OUTPUT_VAR=icp_admin_password) ; \
 	$(SELF) -s validateicp:runall
