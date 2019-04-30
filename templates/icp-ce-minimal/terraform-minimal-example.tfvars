@@ -3,4 +3,4 @@
 # sl_api_key = "softlayer api key"
 
 # Datacenter also needs to be set explicitly
-datacenter = "ams06"
+datacenter = "fra05"
