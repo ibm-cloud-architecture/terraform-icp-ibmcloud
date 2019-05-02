@@ -49,7 +49,8 @@ resource "ibm_security_group_rule" "allow_port_8443" {
   protocol = "tcp"
   port_range_min = 8443
   port_range_max = 8443
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -60,7 +61,8 @@ resource "ibm_security_group_rule" "allow_port_8500" {
   protocol = "tcp"
   port_range_min = 8500
   port_range_max = 8500
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -71,7 +73,8 @@ resource "ibm_security_group_rule" "allow_port_8600" {
   protocol = "tcp"
   port_range_min = 8600
   port_range_max = 8600
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -82,7 +85,8 @@ resource "ibm_security_group_rule" "allow_port_8001" {
   protocol = "tcp"
   port_range_min = 8001
   port_range_max = 8001
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -94,7 +98,8 @@ resource "ibm_security_group_rule" "allow_port_9443" {
   protocol = "tcp"
   port_range_min = 9443
   port_range_max = 9443
-  remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-master.0.private_subnet}"
   security_group_id = "${ibm_security_group.master_group.id}"
 }
 
@@ -111,7 +116,8 @@ resource "ibm_security_group_rule" "allow_port_80" {
   protocol = "tcp"
   port_range_min = 80
   port_range_max = 80
-  remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
   security_group_id = "${ibm_security_group.proxy_group.id}"
 }
 
@@ -122,7 +128,8 @@ resource "ibm_security_group_rule" "allow_port_443" {
   protocol = "tcp"
   port_range_min = 443
   port_range_max = 443
-  remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
+  remote_ip = "0.0.0.0/0" # Cloud Loadbalancers seem to sometimes pass own IP, other times pass real source
+  # remote_ip = "${ibm_compute_vm_instance.icp-proxy.0.private_subnet}"
   security_group_id = "${ibm_security_group.proxy_group.id}"
 }
 
